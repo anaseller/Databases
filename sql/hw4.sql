@@ -53,5 +53,5 @@ WHERE discounter_price = (SELECT MAX(discounter_price) FROM orders);
 # 10. Написать запрос, который выведет все заказы с дополнительным столбцом процент_скидки,
 # который содержит разницу в процентах между нормальной и скидочной ценой?
 
-SELECT *, ROUND(100 - discounter_price / orders.good_price * 100) AS discount_percent
+SELECT *, ROUND(100 - discounter_price / good_price * 100) AS discount_percent
 FROM orders;
