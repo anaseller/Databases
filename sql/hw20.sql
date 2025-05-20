@@ -29,8 +29,35 @@ group by rating;
 # рейтинг и количество фильмов в каждом рейтинге. Объясните, чем отличаются результаты
 # предыдущего запроса и запроса в этой задаче.
 
+select
+  title,
+  rating,
+  count(*) over (partition by rating) as films_in_rating
+from film;
+
+# group by возвращает группу в одной строке, а partition by сохраняет все строки и добавляет колонку без группировки
+
 
 
 # 4.Изучите таблицы payment и customer. Выведите список всех платежей с указанием имени и фамилии каждого заказчика,
 # датой платежа и суммой.
+
+select
+  p.payment_id,
+  c.first_name,
+  c.last_name,
+  p.payment_date,
+  p.amount
+from payment p
+join customer c on p.customer_id = c.customer_id;
+
 # 5.Поменяйте предыдущий запрос так, чтобы дата выводилась в формате “число, название месяца, год” (без времени).
+
+select
+  p.payment_id,
+  c.first_name,
+  c.last_name,
+  date_format(p.payment_date, '%e %M %Y') as formatted_date,
+  p.amount
+from payment p
+join customer c on p.customer_id = c.customer_id;
